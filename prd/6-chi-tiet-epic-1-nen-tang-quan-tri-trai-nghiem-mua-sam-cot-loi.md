@@ -103,19 +103,26 @@ Khi người dùng chọn hoặc bỏ chọn một tiêu chí lọc, danh sách 
 4. Mỗi sản phẩm trong kết quả tìm kiếm hiển thị hình ảnh thu nhỏ, tên sản phẩm và thương hiệu.
 5. Nhấp vào một sản phẩm trong kết quả sẽ đưa người dùng đến trang chi tiết sản phẩm đó.
 
-## Story 1.5: Quy trình Giỏ hàng và Thanh toán (Guest Checkout)
-*   **Là** một khách hàng (không cần đăng nhập),
-*   **Tôi muốn** thêm sản phẩm vào giỏ hàng, điền thông tin giao hàng và hoàn tất thanh toán,
-*   **Để** tôi có thể mua hàng một cách nhanh chóng và thuận tiện.
+## Story 1.5: Quy trình Giỏ hàng và Thanh toán Hợp nhất
+*   **Là** một khách hàng,
+*   **Tôi muốn** xem lại giỏ hàng và hoàn tất việc đặt hàng trên cùng một trang,
+*   **Để** có một trải nghiệm mua sắm liền mạch và nhanh chóng.
 
 **Tiêu chí Chấp nhận (Acceptance Criteria):**
 
-1. Nút "Thêm vào giỏ hàng" trên trang chi tiết sản phẩm hoạt động.
-2. Người dùng có thể xem giỏ hàng, thay đổi số lượng hoặc xóa sản phẩm.
-3. Trong trang thanh toán, người dùng có thể điền thông tin người nhận và địa chỉ giao hàng.
-4. Người dùng có thể chọn một trong các phương thức thanh toán đã định (COD, ZaloPay, Momo, VNPAY).
-5. Sau khi đặt hàng thành công, người dùng nhận được một trang xác nhận với mã đơn hàng.
-6. Một email xác nhận đơn hàng được tự động gửi đến địa chỉ email của khách hàng.
+1.  Khi người dùng nhấn nút "Thêm vào giỏ hàng", một thông báo (notification) sẽ hiển thị xác nhận sản phẩm đã được thêm.
+2.  Thông báo này phải chứa: ảnh thumbnail của sản phẩm, tên sản phẩm, số lượng, và một nút "Xem giỏ hàng".
+3.  Người dùng được chuyển đến trang "Giỏ hàng & Thanh toán" khi nhấp vào icon giỏ hàng trên header hoặc nút "Xem giỏ hàng" trong thông báo.
+4.  Trên trang "Giỏ hàng & Thanh toán", người dùng có thể xem lại danh sách sản phẩm (bao gồm thông tin biến thể đã chọn), thay đổi số lượng, hoặc xóa sản phẩm khỏi giỏ hàng.
+5.  Phương thức thanh toán duy nhất là "Thanh toán khi nhận hàng" (COD) và được chọn mặc định.
+6.  **Đối với khách vãng lai (chưa đăng nhập):**
+    *   Phải điền đầy đủ các thông tin giao hàng bắt buộc: Họ và tên, Số điện thoại, Email, Địa chỉ.
+7.  **Đối với thành viên (đã đăng nhập):**
+    *   Các trường thông tin Họ và tên, Số điện thoại, Email được tự động điền từ thông tin tài khoản.
+    *   Người dùng có thể chỉnh sửa thông tin giao hàng nếu cần.
+8.  Sau khi nhấn nút "Hoàn tất đơn hàng", hệ thống sẽ tạo đơn hàng thành công.
+9.  Một email xác nhận đơn hàng được tự động gửi đến địa chỉ email của khách hàng.
+10. Đồng thời, một email thông báo có đơn hàng mới được gửi đến email của quản trị viên.
 
 ## Story 1.6: Quản lý Đơn hàng cho Admin
 *   **Là** một quản trị viên,
