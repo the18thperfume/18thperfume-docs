@@ -38,7 +38,7 @@ Bằng cách áp dụng kiến trúc Serverless-First trên AWS, giải pháp c�
 *   **FR3:** Hệ thống phải cung cấp một thanh tìm kiếm hiệu quả. Khi người dùng tương tác với thanh tìm kiếm, hệ thống phải hiển thị các gợi ý thông minh, bao gồm: các từ khóa được tìm kiếm nhiều nhất, danh sách các thương hiệu nổi bật, và danh sách các sản phẩm người dùng đã xem gần đây.
 *   **FR4:** Người dùng phải có khả năng thêm sản phẩm vào giỏ hàng, xem lại giỏ hàng và tiến hành quy trình thanh toán.
 *   **FR5:** Hệ thống phải hỗ trợ tính năng **"Guest Checkout"**, cho phép người dùng mua hàng mà không cần tạo tài khoản.
-*   **FR6:** Hệ thống phải tích hợp với các cổng thanh toán phổ biến tại Việt Nam, bao gồm COD (Thanh toán khi nhận hàng), ZaloPay, Momo, và VNPAY.
+*   **FR6:** Hệ thống phải hỗ trợ phương thức thanh toán khi nhận hàng (COD).
 *   **FR7:** Người dùng phải có tùy chọn đăng ký tài khoản mới hoặc đăng nhập bằng tài khoản mạng xã hội (ví dụ: Google, Facebook).
 *   **FR8:** Người dùng đã đăng nhập phải có thể truy cập trang cá nhân để xem lại lịch sử các đơn hàng đã đặt.
 *   **FR9:** Phải có một Trang Quản trị (Admin Panel) cơ bản cho phép quản trị viên thực hiện các tác vụ quản lý cốt lõi: quản lý sản phẩm, xem đơn hàng và quản lý người dùng.
@@ -72,8 +72,7 @@ Tầm nhìn là tạo ra một trải nghiệm mua sắm nước hoa trực tuy�
 *   Trang chủ (Homepage)
 *   Trang danh sách sản phẩm (Category/Listing Page)
 *   Trang chi tiết sản phẩm (Product Detail Page)
-*   Giỏ hàng (Shopping Cart)
-*   Trang thanh toán (Checkout Page)
+*   Trang Giỏ hàng & Thanh toán (Shopping Cart & Checkout Page)
 *   Trang quản lý tài khoản người dùng (bao gồm lịch sử đơn hàng)
 *   Trang quản trị (Admin Panel)
 
@@ -153,7 +152,6 @@ Tầm nhìn là tạo ra một trải nghiệm mua sắm nước hoa trực tuy�
     *   **Tên biến thể:** Tự điền (ví dụ: "Chiết 10ml", "Fullseal 50ml").
     *   **Giá gốc:** Tự điền (số).
     *   **Mức sale:** Tự điền (số, biểu thị %).
-    *   **Tồn kho:** Tự điền (số).
 4.  Hệ thống phải tự động rút ra thuộc tính **"Dung tích"** (ví dụ: "Chiết", "Fullseal") từ "Tên biến thể" để phục vụ cho việc lọc sản phẩm sau này.
 5.  Tất cả thông tin sản phẩm và biến thể được lưu chính xác vào cơ sở dữ liệu.
 
@@ -192,7 +190,7 @@ Khi người dùng chọn hoặc bỏ chọn một tiêu chí lọc, danh sách 
 
 1. Mỗi sản phẩm trong danh sách hiển thị hình ảnh đại diện, tên sản phẩm, thương hiệu.
 2. Giá hiển thị cho sản phẩm là giá của biến thể rẻ nhất.
-3. Có các "swatches" (ô chọn nhỏ) cho phép người dùng thấy các biến thể dung tích khác nhau (ví dụ: 10ml, 20ml, 50ml) và khi di chuột qua, giá sẽ được cập nhật tương ứng.
+3. Có các "swatches" (ô chọn nhỏ) cho phép người dùng thấy các biến thể dung tích khác nhau (ví dụ: 10ml, 20ml, 50ml) và khi di chuột qua rồi click vào, giá sẽ được cập nhật tương ứng.
 
 ### Story 1.4: Tìm kiếm Sản phẩm Thông minh với Modal Tức thì
 *   **Là** một người dùng,
@@ -220,19 +218,26 @@ Khi người dùng chọn hoặc bỏ chọn một tiêu chí lọc, danh sách 
 4. Mỗi sản phẩm trong kết quả tìm kiếm hiển thị hình ảnh thu nhỏ, tên sản phẩm và thương hiệu.
 5. Nhấp vào một sản phẩm trong kết quả sẽ đưa người dùng đến trang chi tiết sản phẩm đó.
 
-### Story 1.5: Quy trình Giỏ hàng và Thanh toán (Guest Checkout)
-*   **Là** một khách hàng (không cần đăng nhập),
-*   **Tôi muốn** thêm sản phẩm vào giỏ hàng, điền thông tin giao hàng và hoàn tất thanh toán,
-*   **Để** tôi có thể mua hàng một cách nhanh chóng và thuận tiện.
+### Story 1.5: Quy trình Giỏ hàng và Thanh toán Hợp nhất
+*   **Là** một khách hàng,
+*   **Tôi muốn** xem lại giỏ hàng và hoàn tất việc đặt hàng trên cùng một trang,
+*   **Để** có một trải nghiệm mua sắm liền mạch và nhanh chóng.
 
 **Tiêu chí Chấp nhận (Acceptance Criteria):**
 
-1. Nút "Thêm vào giỏ hàng" trên trang chi tiết sản phẩm hoạt động.
-2. Người dùng có thể xem giỏ hàng, thay đổi số lượng hoặc xóa sản phẩm.
-3. Trong trang thanh toán, người dùng có thể điền thông tin người nhận và địa chỉ giao hàng.
-4. Người dùng có thể chọn một trong các phương thức thanh toán đã định (COD, ZaloPay, Momo, VNPAY).
-5. Sau khi đặt hàng thành công, người dùng nhận được một trang xác nhận với mã đơn hàng.
-6. Một email xác nhận đơn hàng được tự động gửi đến địa chỉ email của khách hàng.
+1.  Khi người dùng nhấn nút "Thêm vào giỏ hàng", một thông báo (notification) sẽ hiển thị xác nhận sản phẩm đã được thêm.
+2.  Thông báo này phải chứa: ảnh thumbnail của sản phẩm, tên sản phẩm, số lượng, và một nút "Xem giỏ hàng".
+3.  Người dùng được chuyển đến trang "Giỏ hàng & Thanh toán" khi nhấp vào icon giỏ hàng trên header hoặc nút "Xem giỏ hàng" trong thông báo.
+4.  Trên trang "Giỏ hàng & Thanh toán", người dùng có thể xem lại danh sách sản phẩm (bao gồm thông tin biến thể đã chọn), thay đổi số lượng, hoặc xóa sản phẩm khỏi giỏ hàng.
+5.  Phương thức thanh toán duy nhất là "Thanh toán khi nhận hàng" (COD) và được chọn mặc định.
+6.  **Đối với khách vãng lai (chưa đăng nhập):**
+    *   Phải điền đầy đủ các thông tin giao hàng bắt buộc: Họ và tên, Số điện thoại, Email, Địa chỉ.
+7.  **Đối với thành viên (đã đăng nhập):**
+    *   Các trường thông tin Họ và tên, Số điện thoại, Email được tự động điền từ thông tin tài khoản.
+    *   Người dùng có thể chỉnh sửa thông tin giao hàng nếu cần.
+8.  Sau khi nhấn nút "Hoàn tất đơn hàng", hệ thống sẽ tạo đơn hàng thành công.
+9.  Một email xác nhận đơn hàng được tự động gửi đến địa chỉ email của khách hàng.
+10. Đồng thời, một email thông báo có đơn hàng mới được gửi đến email của quản trị viên.
 
 ### Story 1.6: Quản lý Đơn hàng cho Admin
 *   **Là** một quản trị viên,
@@ -257,8 +262,8 @@ Khi người dùng chọn hoặc bỏ chọn một tiêu chí lọc, danh sách 
 **Tiêu chí Chấp nhận (Acceptance Criteria):**
 
 1. Trên Header có một icon người dùng. Khi chưa đăng nhập, nhấp vào icon này sẽ mở ra một modal/trang đăng nhập.
-2. Giao diện đăng nhập cung cấp các tùy chọn: Đăng nhập bằng email và mật khẩu, hoặc đăng nhập qua Google/Facebook.
-3. Người dùng có thể đăng ký một tài khoản mới bằng email.
+2. Giao diện đăng nhập cung cấp các tùy chọn: Đăng nhập bằng email và mật khẩu, hoặc đăng nhập qua Google/Facebook/Zalo.
+3. Người dùng có thể đăng ký một tài khoản mới bằng email và có gửi mail xác thực để kích hoạt tài khoản.
 4. Có chức năng "Quên mật khẩu" để người dùng có thể lấy lại mật khẩu qua email.
 5. Sau khi đăng nhập thành công, icon trên header thay đổi để thể hiện trạng thái đã đăng nhập và người dùng được chuyển hướng đến trang chủ hoặc trang tài khoản.
 
