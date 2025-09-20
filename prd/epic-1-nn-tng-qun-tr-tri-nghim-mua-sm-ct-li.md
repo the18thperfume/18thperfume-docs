@@ -1,4 +1,4 @@
-# 6. Chi tiết Epic 1: Nền tảng, Quản trị & Trải nghiệm Mua sắm Cốt lõi
+# Epic 1: Nền tảng, Quản trị & Trải nghiệm Mua sắm Cốt lõi
 
 **Mục tiêu Epic:** Mục tiêu của Epic này là thiết lập toàn bộ hạ tầng kỹ thuật, xây dựng các chức năng quản trị cốt lõi (quản lý sản phẩm, xem đơn hàng) và cung cấp một luồng mua sắm hoàn chỉnh cho khách (từ duyệt xem, tìm kiếm đến thanh toán). Khi hoàn thành, chúng ta sẽ có một sản phẩm tối thiểu nhưng hoàn chỉnh, có khả năng tạo ra doanh thu.
 
@@ -36,7 +36,6 @@
     *   **Tên biến thể:** Tự điền (ví dụ: "Chiết 10ml", "Fullseal 50ml").
     *   **Giá gốc:** Tự điền (số).
     *   **Mức sale:** Tự điền (số, biểu thị %).
-    *   **Tồn kho:** Tự điền (số).
 4.  Hệ thống phải tự động rút ra thuộc tính **"Dung tích"** (ví dụ: "Chiết", "Fullseal") từ "Tên biến thể" để phục vụ cho việc lọc sản phẩm sau này.
 5.  Tất cả thông tin sản phẩm và biến thể được lưu chính xác vào cơ sở dữ liệu.
 
@@ -75,7 +74,7 @@ Khi người dùng chọn hoặc bỏ chọn một tiêu chí lọc, danh sách 
 
 1. Mỗi sản phẩm trong danh sách hiển thị hình ảnh đại diện, tên sản phẩm, thương hiệu.
 2. Giá hiển thị cho sản phẩm là giá của biến thể rẻ nhất.
-3. Có các "swatches" (ô chọn nhỏ) cho phép người dùng thấy các biến thể dung tích khác nhau (ví dụ: 10ml, 20ml, 50ml) và khi di chuột qua, giá sẽ được cập nhật tương ứng.
+3. Có các "swatches" (ô chọn nhỏ) cho phép người dùng thấy các biến thể dung tích khác nhau (ví dụ: 10ml, 20ml, 50ml) và khi di chuột qua rồi click vào, giá sẽ được cập nhật tương ứng.
 
 ## Story 1.4: Tìm kiếm Sản phẩm Thông minh với Modal Tức thì
 *   **Là** một người dùng,
