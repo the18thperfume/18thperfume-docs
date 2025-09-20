@@ -1,8 +1,8 @@
 # Tài liệu Yêu cầu Sản phẩm (PRD) cho 18thPerfume
 
-## 1. Mục tiêu và Bối cảnh
+## Goals and Background Context
 
-### 1.1. Mục tiêu
+### Goals
 
 Dưới đây là các mục tiêu chính mà sản phẩm này hướng tới, dựa trên bản tóm tắt dự án:
 
@@ -15,13 +15,13 @@ Dưới đây là các mục tiêu chính mà sản phẩm này hướng tới, 
     *   Đảm bảo người dùng có thể dễ dàng tìm thấy sản phẩm họ muốn.
     *   Xây dựng sự tin tưởng và cảm giác an toàn cho người dùng khi thực hiện giao dịch.
 
-### 1.2. Bối cảnh
+### Background Context
 
 Dự án này tập trung vào việc xây dựng một trang web e-commerce chuyên biệt cho mặt hàng nước hoa tại thị trường Việt Nam. Nền tảng được thiết kế để giải quyết các vấn đề phổ biến mà người dùng đang gặp phải, bao gồm hiệu suất trang web kém, tốc độ tải chậm và quy trình thanh toán phức tạp thường yêu cầu đăng ký bắt buộc.
 
 Bằng cách áp dụng kiến trúc Serverless-First trên AWS, giải pháp của chúng tôi hướng đến việc cung cấp một trải nghiệm mua sắm vượt trội: nhanh chóng, đáng tin cậy và liền mạch. Điều này không chỉ giúp giải quyết các điểm đau của người dùng mà còn tạo ra một nền tảng vững chắc, có khả năng mở rộng linh hoạt và tối ưu về chi phí vận hành, phục vụ cả những người mới tìm hiểu về nước hoa lẫn những khách hàng sành sỏi.
 
-### 1.3. Lịch sử Thay đổi
+### Background Context
 
 | Ngày | Phiên bản | Mô tả | Tác giả |
 | :--- | :--- | :--- | :--- |
@@ -29,9 +29,9 @@ Bằng cách áp dụng kiến trúc Serverless-First trên AWS, giải pháp c�
 
 ---
 
-## 2. Yêu cầu
+## Requirements
 
-### 2.1. Yêu cầu Chức năng (Functional Requirements)
+### Functional Requirements
 
 *   **FR1:** Quản trị viên phải có khả năng quản lý sản phẩm (thêm, sửa, xóa) và phân loại chúng theo các danh mục được xác định trước (ví dụ: thương hiệu, dòng sản phẩm).
 *   **FR2:** Người dùng phải có khả năng duyệt sản phẩm thông qua các danh mục được sắp xếp trên thanh điều hướng (navigation bar). Khi người dùng nhấp vào một danh mục, hệ thống sẽ chuyển đến trang của danh mục đó, hiển thị danh sách các sản phẩm tương ứng và cung cấp các công cụ lọc sản phẩm.
@@ -43,7 +43,7 @@ Bằng cách áp dụng kiến trúc Serverless-First trên AWS, giải pháp c�
 *   **FR8:** Người dùng đã đăng nhập phải có thể truy cập trang cá nhân để xem lại lịch sử các đơn hàng đã đặt.
 *   **FR9:** Phải có một Trang Quản trị (Admin Panel) cơ bản cho phép quản trị viên thực hiện các tác vụ quản lý cốt lõi: quản lý sản phẩm, xem đơn hàng và quản lý người dùng.
 
-### 2.2. Yêu cầu Phi chức năng (Non-Functional Requirements)
+### Non-Functional Requirements
 
 *   **NFR1:** Thời gian tải trang trung bình cho các trang chính (trang chủ, trang sản phẩm, trang danh mục) phải dưới 2 giây.
 *   **NFR2:** Điểm hiệu suất trên Google PageSpeed Insights cho phiên bản di động phải đạt trên 90.
@@ -53,19 +53,19 @@ Bằng cách áp dụng kiến trúc Serverless-First trên AWS, giải pháp c�
 *   **NFR6:** Quá trình xác thực và quản lý thông tin người dùng phải được xử lý một cách an toàn thông qua dịch vụ AWS Cognito.
 
 ---
-## 3. Mục tiêu Thiết kế Giao diện Người dùng
+## User Interface Design Goals
 
-### 3.1. Tầm nhìn Tổng thể về UX (Overall UX Vision)
+### Overall UX Vision
 
 Tầm nhìn là tạo ra một trải nghiệm mua sắm nước hoa trực tuyến **sang trọng, nhanh chóng và đáng tin cậy**. Giao diện phải sạch sẽ, tập trung vào hình ảnh sản phẩm chất lượng cao và cung cấp một luồng thao tác mượt mà, từ khám phá sản phẩm đến thanh toán, giảm thiểu tối đa các bước không cần thiết.
 
-### 3.2. Các Mô hình Tương tác Chính (Key Interaction Paradigms)
+### Key Interaction Paradigms
 
 *   **Khám phá dựa trên danh mục:** Người dùng dễ dàng duyệt sản phẩm qua các danh mục rõ ràng trên thanh điều hướng.
 *   **Tìm kiếm thông minh:** Thanh tìm kiếm là trung tâm, cung cấp gợi ý tức thì và kết quả chính xác.
 *   **Thanh toán không gián đoạn:** Quy trình thanh toán "Guest Checkout" là luồng chính, loại bỏ mọi rào cản đăng ký.
 
-### 3.3. Các Màn hình và Chế độ xem Cốt lõi (Core Screens and Views)
+### Core Screens and Views
 
 Đây là các màn hình quan trọng nhất để hiện thực hóa giá trị của sản phẩm:
 
@@ -76,45 +76,45 @@ Tầm nhìn là tạo ra một trải nghiệm mua sắm nước hoa trực tuy�
 *   Trang quản lý tài khoản người dùng (bao gồm lịch sử đơn hàng)
 *   Trang quản trị (Admin Panel)
 
-### 3.4. Hỗ trợ Tiếp cận (Accessibility)
+### Accessibility: WCAG AA
 
 *   **Mức độ:** WCAG AA. Chúng ta cần đảm bảo trang web có thể được sử dụng bởi càng nhiều người dùng càng tốt, bao gồm cả những người có khuyết tật.
 
-### 3.5. Nhận diện Thương hiệu (Branding)
+### Branding
 
 *   Giao diện cần tuân thủ theo bộ nhận diện thương hiệu của 18thPerfume (nếu có). Tạm thời, chúng ta sẽ hướng đến một phong cách thiết kế tối giản, hiện đại và thanh lịch, sử dụng tông màu trung tính để làm nổi bật sản phẩm.
 
-### 3.6. Nền tảng và Thiết bị Mục tiêu
+### Target Device and Platforms: Web Responsive
 
 *   **Nền tảng:** Web Responsive. Giao diện phải hoạt động hoàn hảo trên cả máy tính để bàn và các thiết bị di động (điện thoại, máy tính bảng).
 
 ---
 
-## 4. Các giả định về Kỹ thuật
+## Technical Assumptions
 
-### 4.1. Cấu trúc Repository
+### Repository Structure: Polyrepo
 
 *   **Lựa chọn:** Polyrepo (Multi-repo)
 *   **Lý do:** Để quản lý và triển khai độc lập giữa hai phần chính của ứng dụng: Frontend (giao diện người dùng, triển khai trên S3/CloudFront) và Backend (logic nghiệp vụ, triển khai trên AWS Lambda). Cách tiếp cận này giúp hai đội (hoặc hai luồng công việc) có thể phát triển song song mà không ảnh hưởng lẫn nhau.
 
-### 4.2. Kiến trúc Dịch vụ
+### Service Architecture
 
 *   **Lựa chọn:** Dựa trên kiến trúc Serverless-First của AWS.
 *   **Lý do:** Để tận dụng tối đa khả năng mở rộng tự động, tính sẵn sàng cao và chi phí tối ưu của các dịch vụ serverless như AWS Lambda, API Gateway, và DynamoDB.
 
 ---
 
-## 5. Danh sách Epic (Epic List)
+## Epic List
 
-*   **Epic 1: Nền tảng, Quản trị & Trải nghiệm Mua sắm Cốt lõi (Foundation, Admin & Core Shopping Experience)**
-    *   **Mục tiêu:** Thiết lập hạ tầng kỹ thuật, xây dựng các **chức năng quản trị cốt lõi (quản lý sản phẩm, xem đơn hàng)** và cung cấp một luồng mua sắm hoàn chỉnh cho khách (từ duyệt xem, tìm kiếm đến thanh toán). Epic này tạo ra một vòng lặp giá trị hoàn chỉnh đầu tiên: admin có thể thêm sản phẩm, và khách hàng có thể mua được hàng.
+### Epic 1: Nền tảng, Quản trị & Trải nghiệm Mua sắm Cốt lõi (Foundation, Admin & Core Shopping Experience)
+**Mục tiêu:** Thiết lập hạ tầng kỹ thuật, xây dựng các **chức năng quản trị cốt lõi (quản lý sản phẩm, xem đơn hàng)** và cung cấp một luồng mua sắm hoàn chỉnh cho khách (từ duyệt xem, tìm kiếm đến thanh toán). Epic này tạo ra một vòng lặp giá trị hoàn chỉnh đầu tiên: admin có thể thêm sản phẩm, và khách hàng có thể mua được hàng.
 
-*   **Epic 2: Quản lý Tài khoản Người dùng & Mở rộng Quản trị (User Account & Admin Expansion)**
-    *   **Mục tiêu:** Xây dựng các tính năng cho phép người dùng đăng ký/đăng nhập và xem lịch sử đơn hàng. Đồng thời, mở rộng Trang Quản trị để admin có thể **quản lý người dùng thành viên**.
+## Epic 2: Quản lý Tài khoản Người dùng & Mở rộng Quản trị (User Account & Admin Expansion)
+**Mục tiêu:** Xây dựng các tính năng cho phép người dùng đăng ký/đăng nhập và xem lịch sử đơn hàng. Đồng thời, mở rộng Trang Quản trị để admin có thể **quản lý người dùng thành viên**.
 
 ---
 
-## 6. Chi tiết Epic 1: Nền tảng, Quản trị & Trải nghiệm Mua sắm Cốt lõi
+## Epic 1: Nền tảng, Quản trị & Trải nghiệm Mua sắm Cốt lõi
 
 **Mục tiêu Epic:** Mục tiêu của Epic này là thiết lập toàn bộ hạ tầng kỹ thuật, xây dựng các chức năng quản trị cốt lõi (quản lý sản phẩm, xem đơn hàng) và cung cấp một luồng mua sắm hoàn chỉnh cho khách (từ duyệt xem, tìm kiếm đến thanh toán). Khi hoàn thành, chúng ta sẽ có một sản phẩm tối thiểu nhưng hoàn chỉnh, có khả năng tạo ra doanh thu.
 
@@ -250,7 +250,7 @@ Khi người dùng chọn hoặc bỏ chọn một tiêu chí lọc, danh sách 
 2. Trang này liệt kê tất cả các đơn hàng với các thông tin cơ bản: mã đơn hàng, tên khách hàng, ngày đặt, tổng tiền và trạng thái.
 3. Admin có thể nhấp vào một đơn hàng để xem chi tiết thông tin giao hàng và các sản phẩm đã đặt.
 
-## 7. Chi tiết Epic 2: Quản lý Tài khoản Người dùng & Mở rộng Quản trị
+## Epic 2: Quản lý Tài khoản Người dùng & Mở rộng Quản trị
 
 **Mục tiêu Epic:** Xây dựng các tính năng cho phép người dùng đăng ký, đăng nhập và xem lịch sử đơn hàng. Đồng thời, mở rộng Trang Quản trị để admin có thể quản lý người dùng thành viên, hoàn thiện vòng lặp quản lý của hệ thống.
 
